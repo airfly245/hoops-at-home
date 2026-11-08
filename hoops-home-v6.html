@@ -74,9 +74,9 @@ input[type=color]{width:44px;height:34px;border:0;background:none;padding:0}
 #nav{max-width:680px;margin:0 auto;display:flex;border-top:1px solid var(--line)}
 #nav button{flex:1;border:0;background:none;padding:8px 2px;font-size:11px;font-weight:600;color:var(--mut)}#nav button span{display:block;font-size:20px}#nav .on{color:var(--ac)}
 #ov{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:9}#ov img{max-width:100%;max-height:100%}
-.pfh{position:relative;height:360px;border-radius:24px;overflow:hidden;margin-top:6px;background:color-mix(in srgb,var(--pm) 30%,var(--card))}
+.pfh{position:relative;height:360px;border-radius:24px;overflow:hidden;margin-top:6px;background:var(--ph,color-mix(in srgb,var(--pm) 30%,var(--card)))}
 .pfh::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-60px;height:150px;background:var(--bg);transform:rotate(-7deg)}
-.pfh svg{position:absolute;left:50%;top:14px;height:300px;transform:translateX(-50%);filter:drop-shadow(0 10px 10px rgba(0,0,0,.2));z-index:1}
+.pfh svg{position:absolute;shape-rendering:geometricPrecision;left:50%;top:14px;height:300px;transform:translateX(-50%);filter:drop-shadow(0 10px 10px rgba(0,0,0,.2));z-index:1}
 .pfi{position:absolute;left:16px;bottom:14px;z-index:2}.pfi small{display:block;font-size:17px}.pfi b{display:block;font-size:34px;line-height:1;font-weight:900;text-transform:uppercase;letter-spacing:-1px}
 .pfb{position:absolute;right:16px;bottom:18px;z-index:2;width:62px;height:62px;border-radius:50%;background:var(--card);box-shadow:0 6px 16px rgba(0,0,0,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;font-size:20px}.pfb span{font-size:10px;color:var(--mut)}
 .pft{position:absolute;top:10px;right:10px;z-index:2;display:flex;background:color-mix(in srgb,var(--card) 80%,transparent);border-radius:99px;padding:3px}.pft button{border:0;background:none;border-radius:99px;padding:6px 12px;font-size:12px;font-weight:700}.pft .on{background:var(--ac);color:var(--acx)}
@@ -210,7 +210,7 @@ return `<g transform="translate(100 290) scale(${o.sc}) translate(-100 -290)"><g
 <path d="M${cx-sw+4} ${ty-2} L${cx-13} ${ty-2} Q${cx} ${f.back?ty+8:ty+22} ${cx+13} ${ty-2} L${cx+sw-4} ${ty-2} L${cx+sw-3} ${ty+16} L${cx+tw} ${ty+30} L${cx+tw} 180 L${cx-tw} 180 L${cx-tw} ${ty+30} L${cx-sw+3} ${ty+16}Z" fill="${f.maj}" stroke="${f.min}" stroke-width="4" stroke-linejoin="round"/>
 ${f.back&&f.nm?`<text x="${cx}" y="${ty+30}" text-anchor="middle" font-size="10" font-weight="800" fill="${f.nc}" textLength="${Math.min(nm.length*7,tw*2-6)}" lengthAdjust="spacingAndGlyphs" font-family="system-ui,sans-serif">${pe(nm)}</text>`:""}
 <text x="${cx}" y="${f.back?138:128}" text-anchor="middle" font-size="${fs}" font-weight="900" fill="${f.nc}" font-family="system-ui,sans-serif">${f.num}</text></g>`}
-function phero(){const f=PF(),n=f.name.trim(),w=n.split(/\s+/);document.documentElement.style.setProperty("--pm",f.maj);
+function phero(){const f=PF(),n=f.name.trim(),w=n.split(/\s+/);const rs=document.documentElement.style;rs.setProperty("--pm",f.maj);f.sil=="#ffffff"?rs.setProperty("--ph","color-mix(in srgb,"+f.maj+" 22%,#1b2030)"):rs.removeProperty("--ph");
 return `<div class="pft">${["Front","Back"].map((t,i)=>`<button data-pfv="${i}" class="${f.back==i?"on":""}">${t}</button>`).join("")}</div><svg viewBox="0 0 200 290" aria-label="Player silhouette">${pfig()}</svg><div class="pfi"><small>${n?(w.length>1?pe(w.slice(0,-1).join(" ")):"I’m"):"Your"}</small><b>${n?pe(w[w.length-1]):"Name"}</b></div><div class="pfb"><span>${P[S.pos]?P[S.pos][0].split(" ").map(x=>x[0]).join(""):"SF"}</span>${f.num}</div>`}
 const PEM={pg:"🧠",sg:"🎯",sf:"🏃",pf:"💪",c:"🏰"};
 function wheel(){return `<div class="wheel" id="wh">${Object.entries(P).map(([k,v])=>`<button class="wb ${S.pos==k?"on":""}" data-pos="${k}"><span>${PEM[k]}</span><small>${v[0]}</small></button>`).join("")}</div>`}
